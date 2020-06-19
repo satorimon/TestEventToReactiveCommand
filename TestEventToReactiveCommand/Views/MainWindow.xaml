@@ -1,0 +1,26 @@
+﻿<Window x:Class="TestEventToReactiveCommand.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:interactivity="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+        xmlns:local="clr-namespace:TestEventToReactiveCommand"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="350" Width="525">
+
+    <behaviours:Interaction.Triggers>
+        <behaviours:EventTrigger EventName="MouseMove">
+            <interactivity:EventToReactiveCommand Command="{Binding MouseMoveCommand}">
+                <local:MouseMoveToMousePositionConverter />
+            </interactivity:EventToReactiveCommand>
+        </behaviours:EventTrigger>
+    </behaviours:Interaction.Triggers>
+
+    <Grid>
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Binding Message.Value}" />
+    </Grid>
+</Window>
